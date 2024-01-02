@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link th:href="@{/css/style.css}" rel="styleSheet">
+    <script th:src="@{/js/search.js}"></script>
+    <script th:src="@{/js/redirectToPetDetail.js}"></script>
+    <script th:src="@{/js/slider.js}"></script>
+    <title>にゃんだ～</title>
+    <link rel="icon" th:href="@{/image/アイコン猫.png}" type="image/png">
+</head>
+<body>
+<header>
+    <div id="header" th:replace="~{/header :: header}"></div>
+</header>
+<main>
+    <!--キービジュアル-->
+    <div class="keyVisual">
+        <div class="keyVisual-inner">
+            <p class="keyVisual-description">
+                あたたかなひと時を、<br>
+                猫と共に。<br>
+                里親募集中、<br>
+                新たな家族があなたを待っています。<br>
+            </p>
+        </div>
+    </div>
+    <div class="carousel_background">
+        <ul class="carousel">
+            <li><img src="image/cat1.jpg" width="auto"></li>
+            <li><img src="image/cat2.jpg" width="auto"></li>
+            <li><img src="image/cat3.jpg" width="auto"></li>
+            <li><img src="image/cat4.jpg" width="auto"></li>
+            <li><img src="image/cat5.jpg" width="auto"></li>
+            <li><img src="image/cat6.jpg" width="auto"></li>
+        </ul>
+    </div>
+    <h3 class="page-title">里親募集中のねこはこちら <i class="bi bi-arrow-down-short"></i></h3>
+    <!--検索フォーム-->
+    <div class="search">
+        <form th:action="@{/}" th:method="get" class="search-form">
+            <label for="category">猫の種類</label>
+            <select id="category" class="submit-select" name="category">
+                <option th:value="0" th:text="All" th:selected="${category == 0}"></option>
+                <option th:each="category : ${categories}" th:value="${category.key}" th:text="${category.value}" th:selected="${selectedCategory == category.key}"></option>
+            </select>
+            <label for="prefecture">お住まいの地域</label>
+            <select id="prefecture" class="submit-select" name="prefecture">
+                <option th:value="0" th:text="All" th:selected="${category == 0}"></option>
+                <option th:each="prefecture : ${prefectures}" th:value="${prefecture.key}" th:text="${prefecture.value}" th:selected="${selectedPrefecture == prefecture.key}"></option>
+            </select>
+            <input type="text" name="searchWord" th:value="${searchWord}" rows="1" cols="20" placeholder="検索ワードを入力">
+            <button type="submit">
+                <i class="bi bi-search-heart"></i>
+            </button>
+<!--            <input type="reset" value="条件クリア">-->
+            <button type="button" onclick="$('#category').val('0'); $('input[name=&quot;searchWord&quot;]').val('');">条件クリア</button>
+        </form>
+    </div>
+    <!--猫ちゃん一覧-->
+    <div class="inner">
+        <div class="pet-blk">
+            <div class="pet-row" th:each="pet,cat :${pets}">
+                <div class="pet">
+                    <p class="photo" th:data-pet-id="${pet.id}" onclick="this.nextElementSibling.submit();">
+                        <img th:src="@{'data:image/jpeg;base64,' + ${pet.image1}}" alt="ペットの画像" th:if="${not #strings.isEmpty(pet.image1)}">
+                        <img th:src="@{/image/NO-IMAGE-medium.png}" alt="ペットの画像" th:if="${#strings.isEmpty(pet.image1)}">
+                    </p>
+                    <form id="petDetailForm" th:action="@{/petDetail}" method="get">
+                        <input type="hidden" name="petId" th:value="${pet.id}">
+                        <input type="submit" style="display:none;">
+                    </form>
+                    <p class="cat-name">猫の名前：<span th:text="${pet.name}"></span></p>
+                    <p class="category">猫の種類：<span th:text="${categories[pet.catType]}"></span></p>
+                    <p class="age">猫の年齢：<span th:text="${pet.age + '歳 ' + pet.ageMonth + 'カ月'}"></span></p>
+                    <p class="gender">
+                        猫の性別：
+                        <span th:if="${pet.gender == 1}" th:text="'♂'" th:style="'color: #6495ed'"></span>
+                        <span th:if="${pet.gender == 2}" th:text="'♀'" th:style="'color: #db4275'"></span>
+                    </p>
+                    <p class="body-color">猫の毛の色：<span th:text="${pet.color}"></span></p>
+                    <p class="prefecture">現在所在地：<span th:text="${prefectures[pet.prefectureName]}"></span></p>
+                    <p class="status">
+                        募集状況：
+                        <span th:if="${pet.status == 1}" th:text="募集中！" th:style="'background-color:#ffff66'"></span>
+                        <span th:if="${pet.status == 2}" th:text="商談中"></span>
+                        <span th:if="${pet.status == 3}" th:text="募集終了" th:style="'background-color:#ffb3b3'"></span>
+                    </p>
+                    <div class="button-list">
+                        <div th:if="${#lists.isEmpty(favoritesList)}">
+                            <form th:action="@{add-favorite}" method="post">
+                                <input type="hidden" name="petId" th:value="${pet.id}">
+                                <button type="submit" title="いいね！">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div th:unless="${#lists.isEmpty(favoritesList)}">
+                            <div th:if="${#lists.contains(favoritesList, pet.id)}">
+                                <form th:action="@{/favorite/delete/{petId}(petId=${pet.id})}" method="post">
+                                    <input type="hidden" name="petId" th:value="${pet.id}">
+                                    <button type="submit" title="いいね！">
+                                        <i class="bi bi-heart-fill"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <div th:unless="${#lists.contains(favoritesList, pet.id)}">
+                                <form th:action="@{add-favorite}" method="post">
+                                    <input type="hidden" name="petId" th:value="${pet.id}">
+                                    <button type="submit" title="いいね！">
+                                        <i class="bi bi-heart"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                        <!--猫の登録情報編集ボタン-->
+                        <th:block th:if="${pet.recruitmentId == loginId && loginId != null}">
+                            <p class="edit-pet">
+                            <form th:action="@{/petEdited}" method="post">
+                                <input type="hidden" name="id" th:value="${pet.id}">
+                                <input type="submit" value="Edit" class="button">
+                            </form>
+                            </p>
+                        </th:block>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <div id="footer" th:replace="~{/footer :: footer}"></div>
+</footer>
+</body>
+</html>

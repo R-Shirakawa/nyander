@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script th:src="@{https://code.jquery.com/jquery-3.3.1.min.js}"></script>
+    <!-- Bootstrap用CSSの読み込み -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Bootstrap用JavaScriptの読み込み -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link th:href="@{/css/style.css}" rel="styleSheet">
+    <script th:src="@{/js/login.js}"></script>
+    <title>ログイン</title>
+</head>
+<body>
+<header>
+    <div id="header" th:replace="~{/header :: header}"></div>
+</header>
+<main>
+    <div class="container">
+        <h3 class="page-title">ログイン</h3>
+        <div class="row">
+            <div class="errorMessages" th:if="${param.error}">
+                IDまたはパスワードが不正です
+            </div>
+            <div class="errorMessages" th:if="${param.unauthorized}">
+                ログインしてください
+            </div>
+            <div class="errorMessages" th:if="${param.logout}">
+                ログアウトしました
+            </div>
+        </div>
+        <div class="row">
+            <form class="login-form" th:action="@{/login}" method="post" >
+                <div>アカウント名</div>
+                <input class="form-control" type="text" name="username" id="email" th:value="${savedUsername}" autofocus />
+                <div>パスワード</div>
+                <input class="form-control" type="password" name="password" id="password" th:value="${savedPassword}" />
+                <input type="checkbox" id="rememberMe" name="isRememberMe" th:checked="${isRememberMe}"> メールアドレス、パスワードを保持する
+                <div class="submit-button" style="display:none;">
+                    <input type="submit" value="ログイン" id="loginButton">
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+<footer>
+    <div id="footer" th:replace="~{/footer :: footer}"></div>
+</footer>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <!-- Bootstrap CSS -->
+  <script th:src="@{https://code.jquery.com/jquery-3.3.1.min.js}"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link th:href="@{/css/style.css}" rel="styleSheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <script th:src="@{/js/chat.js}"></script>
+  <title>Title</title>
+</head>
+<body>
+<header>
+  <div id="header" th:replace="~{/header :: header}"></div>
+</header>
+  <div class="chat-head">
+    <p th:text="'こちらは' + ${pet.name} + 'のチャットルームです'" class="pet-name"></p>
+<!--    <p th:text="${recruimentName} +'さんとチャットで話してみましょう！' " th:if="${loginUser.id != chatForm.userId}"></p>-->
+  </div>
+<span id="pet-id" th:text="${pet.id}" type="hidden" style="display:none;"></span>
+<!--  <div style="width: 100%; height: 500px; overflow-y: scroll; border: 1px #999999 solid;">-->
+    <div id="test">
+<!--      <span id="pet-id" th:text="${pet.id}" type="hidden" style="display:none;"></span>-->
+      <div id="chat_group" th:replace="~{/chat_group :: chat_group}"></div>
+    </div>
+<!--  </div>-->
+<div class="container d-flex align-items-center justify-content-center">
+  <div class="input-field">
+    <div id="chat_add" th:replace="~{/chat_add :: chat_add}"></div>
+  </div>
+</div>
+<footer>
+  <div id="footer" th:replace="~{/footer :: footer}"></div>
+</footer>
+<!--<script>-->
+<!--        document.getElementById('test').scrollIntoView(false);-->
+<!--        console.log("確認")-->
+<!--      </script>-->
+</body>
+</html>

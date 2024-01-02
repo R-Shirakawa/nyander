@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script th:src="@{https://code.jquery.com/jquery-3.3.1.min.js}"></script>
+    <!-- Bootstrap用CSSの読み込み -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <!-- Bootstrap用JavaScriptの読み込み -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link th:href="@{/css/style.css}" rel="styleSheet">
+    <script th:src="@{/js/signup.js}"></script>
+    <title>ユーザー新規登録</title>
+</head>
+<body>
+<header>
+    <div id="header" th:replace="~{/header :: header}"></div>
+</header>
+<main class="p-3 mx-auto pt-0">
+    <div class="container">
+        <h3 class="page-title">会員登録</h3>
+<!--        <p class="text-end"><i class="bi bi-exclamation-circle-fill needed"></i>は必須項目です</p>-->
+        <div class="row">
+            <form class="signUp-form" th:action="@{/signup}" method="post" novalidate >
+                <div class="input-name"><span class="badge bg-danger rounded-pill">必須</span> アカウント名</div>
+                <input type="text" class="form-control" th:value="${signUpForm.name}" id="signUpName"  name="name" required autofocus />
+                <div class="invalid-feedback mt-0" value=""></div>
+
+                <div class="input-name"><span class="badge bg-danger rounded-pill">必須</span> パスワード</div>
+                <input type="password" class="form-control" th:value="${signUpForm.password}" name="password" id="signUpPassword" required/>
+                <div class="invalid-feedback mt-0" value=""></div>
+
+                <div class="input-name"><span class="badge bg-danger rounded-pill">必須</span> パスワード(確認用)</div>
+                <input type="password" class="form-control" th:value="${signUpForm.confirmPassword}" id="confirmPassword" name="confirmPassword" required/>
+                <div class="invalid-feedback mt-0" value=""></div>
+
+                <div class="input-name" style="display:inline;"><span class="badge bg-secondary rounded-pill">任意</span> 郵便番号　　</div>
+                <button type="button" id="searchAddress" class="btn btn-primary btn-sm">住所を検索</button>
+                <button type="button" id="clearAddress" class="btn btn-secondary btn-sm">住所をクリア</button>
+                <input type="text" class="form-control" th:value="${signUpForm.postNumber}" id="postNumber" name="postNumber" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0, 7);" maxlength="7"/>
+<!--                <input type="number" class="form-control" th:value="${signUpForm.postNumber}" id="postNumber" name="postNumber"-->
+<!--                       oninput="javascript:if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" maxlength="7"/>-->
+                <div class="invalid-feedback mt-0" value=""></div>
+
+                <div class="input-name"><span class="badge bg-danger rounded-pill">必須</span> 住所（県名）</div>
+                <select class="form-select" th:value="${signUpForm.address1}" id="address1" name="address1" required>
+                    <option value="">都道府県を選択してください</option>
+                    <th:block th:each="prefecture : ${prefectures}">
+                        <option th:value="${prefecture.key}" th:text="${prefecture.value}"></option>
+                    </th:block>
+                </select>
+                <div class="invalid-feedback mt-0" id="feedbackAddress1" value=""></div>
+
+                <div class="input-name"><span class="badge bg-secondary rounded-pill">任意</span> 住所（市町村名）</div>
+                <input type="text" class="form-control" th:value="${signUpForm.address2}" id="address2" name="address2"/>
+                <div class="invalid-feedback mt-0" value=""></div>
+
+                <div class="input-name"><span class="badge bg-secondary rounded-pill">任意</span> 住所（マンション名等）</div>
+                <input type="text" class="form-control" th:value="${signUpForm.address3}" id="address3" name="address3"/>
+                <div class="invalid-feedback mt-0" value=""></div>
+
+                <div class="submit-button" style="display:none;">
+<!--                    <input type="submit" value="登録" id="signUpButton">-->
+                    <button type="button" id="signUpButton" class="button-layout" onclick="submit();">登録</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+<footer>
+    <div id="footer" th:replace="~{/footer :: footer}"></div>
+</footer>
+</html>
