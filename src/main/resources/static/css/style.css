@@ -1,0 +1,664 @@
+/********** 共通CSS **********/
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+    color: #666;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    font-size: 16px;
+    line-height: 2;
+    -webkit-text-size-adjust: 100%;
+}
+
+.loginUser{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.login-name {
+    margin: 0 0 0 15px;
+}
+
+header {
+    padding-bottom: 50px;
+}
+
+main {
+    margin-top: 40px;
+}
+
+.bg-body-tertiary {
+    --bs-bg-opacity: 1;
+    padding-top: 0;
+    padding-bottom: 0;
+    box-shadow: 0px 6px 3px -3px rgba(0, 0, 0, .1);
+    box-sizing: border-box;
+}
+
+img.logo {
+    width: 240px;
+    height: 60px
+}
+
+li.logout {
+    background-color: #007bff;
+}
+
+li.logout:hover {
+    opacity: 0.9;
+}
+
+a.nav-link.logout {
+    margin-left: 16px;
+    color: #fff;
+}
+
+.fixed-bottom {
+    position:static;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+footer {
+    margin-top: 80px;
+}
+
+.bg-white {
+    --bs-bg-opacity: 1;
+}
+
+li {
+    list-style: none;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+input {
+    cursor: pointer;
+    border: 1px solid;
+}
+
+input[type="text"],input[type="number"] {
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 2px;
+    height: 24px;
+}
+
+input[type="submit"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 37px;
+    margin: 0 auto;
+    border: 1px solid #fa8e00;
+    border-radius: 5px;
+    background-color: #fa8e00;
+    color: #fff;
+    font-size: 1em;
+}
+
+input[type="reset"] {
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+input[type="submit"]:hover {
+    border: #fa8e00 1px solid;
+    background-color: #fff;
+    color: #fa8e00;
+    font-weight: 600;
+}
+
+button {
+    cursor: pointer;
+    border: 1px solid;
+    border-radius: 5px;
+}
+
+pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: #666;
+    font-size: 16px;
+    line-height: 2;
+}
+
+form {
+    line-height: 2.22;
+}
+
+textarea {
+    resize: none;
+    overflow-y: scroll;
+    line-height: 1.2;
+}
+
+.page-title {
+    text-align: center;
+}
+
+.errorMessages {
+    color: red;
+    text-align: center;
+    line-height: 1.2;
+}
+
+h3.left-title {
+    margin-left: 3%;
+}
+
+/***** ログイン画面 *****/
+
+input[name="username"], input[name="name"], input[name="password"], input[name="confirmPassword"] {
+    height:30px;
+    border-radius: 2px;
+}
+
+.row {
+    margin: 40px 15% 0 15%;
+}
+
+/***** ホーム画面 *****/
+
+.keyVisual {
+    width: 100%;
+    height: 600px;
+    margin: 0 0 30px;
+    background: url(../image/keyVisual.png) no-repeat center top;
+    background-blend-mode: overlay;
+    background-size: cover;
+    opacity: 0.9;
+}
+
+.keyVisual-description {
+    position: absolute;
+    top: 140px;
+    left: 10px;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.6rem;
+    line-height: 2.3;
+    color: #fff;
+    writing-mode: vertical-rl;
+    opacity: 0;
+    animation: keyVisual-view 0.7s ease 2.0s 1 forwards;
+}
+
+@keyframes keyVisual-view {
+    100% {
+        opacity: 1;
+    }
+}
+
+/*検索フォーム*/
+.search {
+    box-sizing: border-box;
+    border: 1px solid #eee;
+    background-color: #fff5ee;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/*ねこの一覧背景*/
+.inner {
+    margin-left: 3%;
+}
+
+.pet-blk {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/*ねこの一覧（1列）*/
+.pet-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+/*ねこの情報*/
+.pet {
+    box-sizing: border-box;
+    position: relative;
+    width: 230px;
+    border: 1px solid #a9a9a9;
+    justify-content: space-between;
+    line-height: 1.2;
+    margin-right: 5px;
+    background-color: #fff0db;
+}
+
+.pet:hover {
+    opacity: 0.8;
+}
+
+/*ねこの写真*/
+.photo {
+    width: 100%;
+    height: 228px;
+    overflow: hidden;
+    border-bottom: 1px dotted #a9a9a9;
+    background-color: #fff;
+}
+
+img, svg {
+    vertical-align: middle;
+    height: 228px;
+}
+
+.category, .age, .body-color, .prefecture, .ageMonth, gender {
+    font-size: 0.9rem;
+}
+
+.button-list {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+button[type="submit"][title="いいね！"]{
+    margin-left: 30px;
+}
+
+img.favorite-button {
+    width: 30px;
+    height: 30px;
+}
+
+/***** 里親募集画面 *****/
+
+.form-area {
+    border-radius: 5px;
+}
+
+.form-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+textarea#memo {
+    width: 300px;
+    height: 80px;
+}
+
+.add-info {
+    margin: 20px 50px 0px 0px;
+}
+
+.add-file {
+    display: grid;
+    margin-left: 50px;
+}
+
+.file-box {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+div#img-preview1, div#img-preview2, div#img-preview3, div#img-preview4, div#video-preview {
+    margin-left: 30px;
+}
+
+input#catImage1,input#catImage2,input#catImage3,input#catImage4,input#catMovie {
+    height: 32px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.file-button {
+    background-color: blue;
+    border: 2px solid;
+}
+
+.file-icon {
+    display: flex;
+    border: solid 1px;
+    align-items: center;
+    background-color: #fff0f5;
+    height: 32px;
+    cursor: pointer;
+}
+
+.file-icon:hover {
+    opacity: 0.9;
+}
+
+p.file-description {
+    margin: 0 0 0 5px;
+}
+
+img.img-icon {
+    width: 50px;
+    height: 50px;
+    margin-left: -5px;
+    margin-right: -8px;
+}
+
+img.img-icon:hover {
+    transform: scale(1.1);
+}
+
+img.img-preview {
+    width: 120px;
+    height: 120px;
+}
+
+video.video-preview {
+    width: 120px;
+    height: 120px;
+}
+
+.submit-button {
+    text-align: center;
+    margin-top: 30px;
+    padding-bottom: 30px
+}
+
+/***** ペット詳細画面 *****/
+
+.sub-title {
+    left: 0;
+    margin-left: 8px;
+}
+
+.detail-wrap {
+    margin-left: 10%;
+}
+
+.detail-inner {
+
+}
+
+.media-box {
+    box-sizing: border-box;
+    border: 1px solid #e8e7e3;
+    width: 700px;
+    height: 360px;
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+}
+
+.main-box {
+    width: 340px;
+    height: 340px;
+    position: relative;
+    box-sizing: border-box;
+    margin-left: 10px;
+}
+
+img.main-img {
+    display: block;
+    width: 340px;
+    height: 340px;
+    object-fit: cover;
+    scale: 0.95;
+}
+
+img.main-img:hover {
+    scale: 1.0;
+}
+
+.sub-box {
+    width: 340px;
+    height: 340px;
+    box-sizing: border-box;
+    display: flex;
+}
+
+img.sub-img {
+    height: 150px;
+    width: 150px;
+    box-sizing: border-box;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+
+img.sub-img:hover {
+    scale: 1.1;
+}
+
+.main-movie {
+    width: 150px;
+    height: 150px;
+    box-sizing: border-box;
+}
+
+video {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.segment-line {
+    width: 700px;
+    border: solid 2px;
+    border-color: #f5f5f5;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.detail-description {
+    display: flex;
+    line-height: 1.66;
+}
+
+.basic-description {
+    width: 300px;
+    height: 300px;
+    margin-left: 8px;
+}
+
+.pet-memo {
+    width: 380px;
+    height: 300px;
+    text-align: left;
+}
+
+input[type="submit"][name="entry"] {
+    width: 700px;
+    margin: 20px 0 0 0;
+}
+
+.modal-img{
+    width: 70%;
+    height: auto;
+}
+
+/***** エントリー画面 *****/
+.agreement {
+    text-align: center;
+}
+
+.agreement-content {
+    width: 846px;
+    text-align: justify;
+    margin: 0 20% 0 20%;
+}
+
+input[type="submit"][name="agree"] {
+    width: 100px;
+}
+
+/***** チャット一覧画面 *****/
+
+.chat-list {
+    margin: 30px 3% 0 3%;
+}
+
+.chat-row {
+    display: grid;
+    background-color: #f5f5f5;
+ }
+
+.chat-record {
+    display: flex;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    height: 43px;
+}
+
+.chat-title {
+    height: 37px;
+    width:230px;
+    margin: 0 5px 0 10px;
+}
+
+.icon-circle {
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+img.chat-icon {
+    width: 37px;
+    height: 37px;
+    border: 1px solid;
+    border-radius: 500px;
+}
+
+input[type="submit"][name="chat-room"] {
+    width: 100px;
+}
+
+/***** チャット画面 *****/
+
+input[type="text"][name="chatText"] {
+    width: 250px;
+}
+
+.myText {
+     margin-right: 15px;
+     margin-top: 10px;
+     margin-bottom: 10px;
+     display: flex;
+     justify-content: right;
+}
+
+.yourText {
+    text-align: left;
+    margin-left: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.chatBox {
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    border: 1px solid #666;
+    border-radius: 20px;
+    background-color: #fff0db;
+    box-shadow: 5px 6px 20px -1px rgba(0, 0, 0, .1);
+}
+
+.chat-title {
+    text-align: center;
+}
+
+.chat-head {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 50px;
+    line-height: 1.1;
+}
+/***** ヘッダー・チャット画面表示用アイコン *****/
+.user-icon {
+    height: 45px;
+    border: solid 1px #CCC;
+    border-radius: 50%;
+    background-color: #fff;
+}
+
+/***** ユーザー登録・編集画面 *****/
+.button-layout:hover {
+    border: #fa8e00 1px solid;
+    background-color: #fff;
+    color: #fa8e00;
+    font-weight: 600;
+}
+
+.button-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 37px;
+    margin: 0 auto;
+    border: 1px solid #fa8e00;
+    border-radius: 5px;
+    background-color: #fa8e00;
+    color: #fff;
+    font-size: 1em;
+}
+
+.my-chat-icon {
+    text-align: right;
+    display: flex;
+}
+
+.your-chat-icon{
+    text-align: left;
+    display: flex;
+}
+
+.icon-wrap {
+    text-align: right;
+}
+
+.message {
+    overflow-wrap: break-word;
+    max-width: 300px;
+    border: 1px solid #666;
+    border-radius: 15px;
+    margin: 0 5px 0 5px;
+    padding: 8px 5px 5px 8px;
+    text-align: left;
+    background-color: #fff;
+}
+
+button.slick-prev.slick-arrow {
+    display: none!important;
+}
+
+button.slick-next.slick-arrow {
+    display: none!important;
+}
+
+.carousel_background {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    background-color: #f5f5f5;
+    opacity: 0.9;
+}
+
+.carousel {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.carousel img {
+    width: 100%;
+    height: 240px;
+    padding: 10px;
+    box-shadow: 0px 6px 3px -3px rgba(0, 0, 0, .1);
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link th:href="@{/css/style.css}" rel="styleSheet">
+    <script th:src="@{/js/entryButton.js}"></script>
+    <title>エントリー画面</title>
+
+</head>
+<body>
+<header>
+    <div id="header" th:replace="~{/header :: header}"></div>
+</header>
+<main>
+    <div class="agreement">
+        <h3 class="sub-title">同意書</h3>
+        <div th:action="@{/entry}" method="post" th:object="${formModel}">
+            <span th:text="${pet.name + 'の里親になるための同意書'}"></span>
+            <div class="agreement-content">
+                <p>
+                    <ol>
+                        <li>情報の提供: 私は正確かつ完全な情報を提供します。提供された情報が虚偽である場合、里親資格が失効することがあります。</li>
+                        <li>里親の責任: 里親として、猫の健康、安全に対する責任を理解し、最善を尽くします。</li>
+                        <li>家庭環境の提供: 家庭環境が猫の飼育に適しており、里親としての役割を果たすために必要な条件を提供します。</li>
+                        <li>法令と規制の遵守: 里親としての活動において、関連する法令と規制を遵守します。</li>
+                        <li>里親資格の評価と再評価: 里親資格は継続的に評価され、必要に応じて再評価が行われます。</li>
+                        <li>突発的な変更への対応: 家庭状況や里親としての適格性に変更が生じた場合、適切な通知と協力を行います。</li>
+                        <li></li>
+                    </ol>
+                </p>
+            </div>
+            <span>上記の事項を確認しました</span>
+            <label for="checkbox">
+                <input type="checkbox" id="checkbox" name="checkbox" required>
+            </label>
+            <div class="submit-button" style="display:none;" >
+                <a th:href="@{/new_chat}">
+                    <input type="submit" name="agree" value="同意する">
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <div id="footer" th:replace="~{/footer :: footer}"></div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<header>
+    <div id="header" th:replace="~{/header :: header}"></div>
+</header>
+<main>
+    <div class="chat_add form-control" th:fragment="chat_add" th:remove="tag">
+        <form  th:action="@{/add_chat}" method="post" class="add-chat">
+            <input type="hidden" name="chatGroupId" id="chatGroupId" th:value="${chatGroupId}">
+            <input type="text" id="chat-form" name="chatText" placeholder="チャットメッセージを入力してください"><!-- chatIdの値を設定 -->
+            <div id="error" class="invalid-feedback"></div>
+            <button type="submit" id="submit-button"><i class="bi bi-cursor-fill"></i></button>
+        </form>
+    </div>
+</main>
+<footer>
+    <div id="footer" th:replace="~{/footer :: footer}"></div>
+</footer>
+</body>
+</html>

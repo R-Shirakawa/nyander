@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:width="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div th:fragment="header" th:remove="tag">
+        <nav class="navbar bg-body-tertiary fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{/}"><img src="./image/logo.png" class="logo"></a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">にゃんだ～ナビ</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <th:block th:if="${session.loginUser != null}">
+                            <div class="loginUser">
+                                <img th:src="'data:image;base64,' + ${session.loginUser.icon}" alt="icon" class="user-icon">
+                                <p class="login-name" th:text="${session.loginUser.name} + ' さん'"></p>
+                            </div>
+                        </th:block>
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" th:href="@{/}"><i class="bi bi-house-heart-fill"></i> ホーム</a>
+                            </li>
+                            <li class="nav-item" th:if="${session.loginUser == null}">
+                                <a class="nav-link" th:href="@{/login}"><i class="bi bi-box-arrow-in-right"></i> ログイン</a>
+                            </li>
+                            <li class="nav-item" th:if="${session.loginUser == null}">
+                                <a class="nav-link" th:href="@{/signup}"><i class="bi bi-person-fill-add"></i> 会員登録</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" th:href="@{/addPets}"><span class="addPet-icon"><i class="bi bi-envelope-heart"></i> 里親募集の方はこちら</span></a>
+                            </li>
+                            <li class="nav-item dropdown" th:if="${session.loginUser != null}">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    マイページ
+                                </a>
+                                <ul class="dropdown-menu">
+<!--                                    <li><a class="dropdown-item" href="#"><i class="bi bi-bell"></i>　お知らせ</a></li>-->
+                                    <li><a class="dropdown-item" th:href="@{/editUser}"><i class="bi bi-person-lines-fill"></i>　プロフィール設定</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/chatList}"><i class="bi bi-chat-dots"></i>　チャット</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/favorite-list}"><i class="bi bi-heart"></i>　お気に入り一覧</a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li class="logout">
+                                        <a class="nav-link logout" onclick="doLogout()"><i class="bi bi-box-arrow-in-left"></i>　ログアウト</a>
+                                        <script>function doLogout() {document.forms.logoutForm.submit();}</script>
+                                        <form name="logoutForm" th:action="@{/logout}" method="post"></form>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</html>

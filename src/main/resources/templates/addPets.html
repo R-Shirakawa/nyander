@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link th:href="@{/css/style.css}" rel="styleSheet">
+    <script th:src="@{/js/preview.js}"></script>
+    <script th:src="@{/js/fileButton.js}"></script>
+    <title>ペット登録画面</title>
+</head>
+<body>
+<header>
+    <div id="header" th:replace="~{/header :: header}"></div>
+</header>
+<main>
+    <h3 class="page-title">里親募集</h3>
+    <div class="errorMessages" th:if="${errorMessages}" th:each="errorMessage:${errorMessages}">
+        <p th:text="${errorMessage}" style="color:red; text-align:center;"></p>
+    </div>
+    <div class="form-area">
+        <form th:action="@{/addPets}" method="post" th:object="${formModel}" enctype="multipart/form-data">
+            <div class="form-wrap">
+                <div class="add-info">
+                    <label for="age">年齢</label><br>
+                    <input type="number" id="age" name="age" th:field="*{age}" min="0" max="50" required> 歳
+                    <select id="ageMonth" name="ageMonth" th:field="*{ageMonth}">
+                        <option th:each="month : ${#numbers.sequence(0, 12)}"
+                                th:value="${month}"
+                                th:text="${month} + 'ヵ月'">
+                        </option>
+                    </select>
+                    <br>
+
+                    <label for="catType">種類</label><br>
+                    <select id="catType" name="catType" th:field="*{catType}">
+                        <option th:value="0" th:text="猫の種類を選択してください" ></option>
+                        <option th:each="category : ${categories}"
+                                th:value="${category.key}"
+                                th:text="${category.value}">
+                        </option>
+                    </select>
+                    <br>
+
+                    <label for="gender">性別</label><br>
+                    <select id="gender" name="gender" th:field="*{gender}" required>
+                        <option th:value="0" th:text="猫の性別を選択してください" ></option>
+                        <option value="1">オス</option>
+                        <option value="2">メス</option>
+                    </select>
+                    <br>
+
+                    <label for="name">名前</label><br>
+                    <input type="text" id="name" name="cat-name" th:field="*{name}" maxlength="30" >
+                    <br>
+
+                    <label for="color">毛の色</label><br>
+                    <select id="color" name="color" th:field="*{color}" >
+                        <option value="" selected>猫の毛色を選択してください</option>
+                        <option value="白色">白色</option>
+                        <option value="黒色">黒色</option>
+                        <option value="赤色">赤色</option>
+                        <option value="緑色">緑色</option>
+                        <option value="黄色">黄色</option>
+                        <option value="青色">青色</option>
+                        <option value="茶色">茶色</option>
+                        <option value="パープル">パープル</option>
+                        <option value="ピンク">ピンク</option>
+                        <option value="オレンジ">オレンジ</option>
+                        <option value="グレー">グレー</option>
+                    </select>
+                    <br>
+                    <label for="prefectureName">都道府県名</label><br>
+                    <select id="prefectureName" name="prefectureName" th:field="*{prefectureName}">
+                        <option th:value="0" th:text="お住まいの都道府県を選択してください"></option>
+                        <option th:each="prefecture : ${prefectures}"
+                                th:value="${prefecture.key}"
+                                th:text="${prefecture.value}">
+                        </option>
+                    </select>
+                    <br>
+
+                    <label for="memo">メモ</label><br>
+                    <textarea id="memo" name="memo" th:field="*{memo}" placeholder="募集背景や猫の特徴を記載してください" rows="4" maxlength="300"></textarea>
+                    <br>
+                </div>
+                <div class="add-file">
+                    <div class="file-box">
+                        <label for="catImage1">
+                            <div class="file-icon">
+                                <p class="file-description">写真を選択</p>
+                                <img src="./image/catstamp-pink.png" class="img-icon">
+                                <input type="file" id="catImage1" accept="image/*" name="catImage1" onchange="preview(this, 'img-preview1');">
+                            </div>
+                        </label>
+                        <div id="img-preview1"></div>
+                    </div>
+                    <div class="file-box">
+                        <label for="catImage2">
+                            <div class="file-icon">
+                                <p class="file-description">写真を選択</p>
+                                <img src="./image/catstamp-pink.png" class="img-icon">
+                                <input type="file" id="catImage2" accept="image/*" name="catImage2" onchange="preview(this, 'img-preview2');">
+                            </div>
+                        </label>
+                        <div id="img-preview2"></div>
+                    </div>
+                    <div class="file-box">
+                        <label for="catImage3">
+                            <div class="file-icon">
+                                <p class="file-description">写真を選択</p>
+                                <img src="./image/catstamp-pink.png" class="img-icon">
+                                <input type="file" id="catImage3" accept="image/*" name="catImage3" onchange="preview(this, 'img-preview3');">
+                            </div>
+                        </label>
+                        <div id="img-preview3"></div>
+                    </div>
+                    <div class="file-box">
+                        <label for="catImage4">
+                            <div class="file-icon">
+                                <p class="file-description">写真を選択</p>
+                                <img src="./image/catstamp-pink.png" class="img-icon">
+                                <input type="file" id="catImage4" accept="image/*" name="catImage4" onchange="preview(this, 'img-preview4');">
+                            </div>
+                        </label>
+                        <div id="img-preview4"></div>
+                    </div>
+                    <div class="file-box">
+                        <label for="catMovie">
+                            <div class="file-icon">
+                                <p class="file-description">動画を選択</p>
+                                <img src="./image/catstamp-pink.png" class="img-icon">
+                                <input type="file" id="catMovie" accept="video/*" name="catMovie" onchange="preview(this, 'video-preview');">
+                            </div>
+                        </label>
+                        <div id="video-preview"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="submit-button">
+                <input type="submit" value="登録">
+            </div>
+        </form>
+    </div>
+</main>
+<footer>
+    <div id="footer" th:replace="~{/footer :: footer}"></div>
+</footer>
+</body>
+</html>
