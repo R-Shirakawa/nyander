@@ -124,9 +124,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var postNumberValue = postNumberField.value;
         var feedbackElement = postNumberField.nextElementSibling;
         var regex = /^[0-9]*$/;
-//        postNumberValue = data.replace(/^[0-9]$/);
 
-//debugger;
         if (!postNumberValue.trim()){
         postNumberField.classList.remove("is-invalid");
                     postNumberField.classList.add("is-valid");
@@ -139,11 +137,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 feedbackElement.textContent = "郵便番号には7桁(ハイフンなし)の数字を入力してください";
                 postNumberError = true;
             }
-//        else if (0 < postNumberValue.length && postNumberValue.length < 7) {
-//            postNumberField.classList.add("is-invalid");
-//            postNumberField.classList.remove("is-valid");
-//            feedbackElement.textContent = "郵便番号には7桁の数字を入力してください";
-//            postNumberError = true;
+
          else {
             postNumberField.classList.remove("is-invalid");
             postNumberField.classList.add("is-valid");
