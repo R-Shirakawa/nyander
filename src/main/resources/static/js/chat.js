@@ -1,14 +1,3 @@
-
-//function updateChatMessages() {
-//  $.ajax({
-//    url: '/get_chat_messages',
-//    type: 'GET',
-//    data: { chatGroupId: chatGroupId },
-//    success: function(data) {
-//      $('#chat-messages').html(data);
-//    }
-//  });
-//}
 document.addEventListener("DOMContentLoaded", function() {
     var chatField = document.getElementById("chat-form");
     var chatError = true;
