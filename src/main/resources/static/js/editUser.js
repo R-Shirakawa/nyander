@@ -48,9 +48,7 @@ window.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        // Crop     ※Crop時は直接丸型で切り取りできないため、CSSレイアウトで疑似的に丸型に切り取っているように見せる。
         croppedCanvas = cropper.getCroppedCanvas();
-        // Round    ※Cropした画像を丸型に加工する。
         roundedCanvas = getRoundedCanvas(croppedCanvas);
         // モーダルのimgタグを上書き
         roundedImage = document.createElement('img');
@@ -60,11 +58,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
         //ファイル化
         roundedCanvas.toBlob(function(imgBlob){
-            // Blob を元に File 化します。
+            // Blob を元に File化
             const croppedImgFile = new File([imgBlob], '切り抜き画像.png' , {type: "image/png"});
-            // DataTransfer インスタンスを介することで input 要素の　files に
-            // JavaScript 内で作った File を渡せます。
-            // 直に new FileList から作って渡そうとすると失敗します。
             const dt = new DataTransfer();
             dt.items.add(croppedImgFile);
             document.querySelector('input[name="image"]').files = dt.files;
@@ -82,7 +77,7 @@ window.addEventListener('DOMContentLoaded', function () {
     };
     //ボタンの表示
     submitButtonDisplay()
-    //バリデーション処理(名前)
+    //バリデーション処理
     nameField.addEventListener("input", function() {
         var nameValue = nameField.value;
         var feedbackElement = nameField.nextElementSibling;
@@ -227,11 +222,6 @@ window.addEventListener('DOMContentLoaded', function () {
             feedbackElement.textContent = "郵便番号には7桁(ハイフンなし)の数字を入力してください";
             postNumberError = true;
         }
-//        else if (0 < postNumberValue.length && postNumberValue.length < 7) {
-//            postNumberField.classList.add("is-invalid");
-//            postNumberField.classList.remove("is-valid");
-//            feedbackElement.textContent = "郵便番号には7桁の数字を入力してください";
-//            postNumberError = true;
          else {
             postNumberField.classList.remove("is-invalid");
             postNumberField.classList.add("is-valid");
@@ -240,19 +230,6 @@ window.addEventListener('DOMContentLoaded', function () {
         }
         signUpButtonDisplay();
     });
-//       if (!regex.test(postNumberValue) || (0 < postNumberValue.length && postNumberValue.length < 7)) {
-//               postNumberField.classList.add("is-invalid");
-//               postNumberField.classList.remove("is-valid");
-//               feedbackElement.textContent = "郵便番号には7桁(ハイフンなし)の数字を入力してください";
-//               postNumberError = true;
-//       } else {
-//           postNumberField.classList.remove("is-invalid");
-//           postNumberField.classList.add("is-valid");
-//           feedbackElement.textContent = "";
-//           postNumberError = false;
-//       }
-//        submitButtonDisplay();
-//    });
 
     address1Field.addEventListener("input", function() {
         var feedbackElement = document.getElementById("feedbackAddress1");
